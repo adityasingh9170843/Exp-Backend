@@ -31,12 +31,19 @@ app.get("/file/:filename", (req, res) => {
   });
 });
 
-app.
+app.get("/edit/:filename", (req, res) => {
+  res.render("edit", { filename: req.params.filename });
+});
 
 app.post("/edit", (req, res) => {
-    console.log(req.body);
-})
+  console.log(req.body);
+  fs.rename(
+    `./files/${req.body.previousfilename}`,
+    `./files/${req.body.newfilename}`,
+    (err) => {res.redirect("/")}
+  );
 
+});
 
 app.listen(3000, () => {
   console.log("running");
